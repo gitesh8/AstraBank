@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <link rel="stylesheet" href="/assets/css/home.css">
+    <link rel="stylesheet" href="/assets/css/preloader.css">
+</head>
+<body>
+    <div id="preloader-overlay">
+        <div id="preloader"></div>
+    </div>
+<div class="container">
+    <h2 id="heading">New Account</h2>
+    <form id="registrationForm">
+        
+        <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" required>
+        </div>
+        <div class="form-group">
+            <label for="accountType">Account Type:</label>
+            <select id="accountType" name="accountType" required>
+                <option value="" disabled selected>Select Account Type</option>
+                <option value="Savings">Saving</option>
+                <option value="Current">Current</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="dateOfBirth">Date of Birth:</label>
+            <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+        </div>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <button type="button" onclick="submitForm()">Submit</button>
+        </div>
+    </form>
+
+    <div id="accountdetails" style="text-align: justify; margin-top: 1rem;display: none;">
+
+        <p id="sucessmsg" style="text-align: center; line-height: 25px;"></p>
+
+        <p><strong>Bank Name: </strong><span id="bankName"></span></p>
+        <p><strong>Username: </strong><span id="usersName"></span></p>
+        <p><strong>Account Number: </strong><span id="accNo"></span></p>
+        <p><strong>Account Holder: </strong><span id="accHolder"></span></p>
+
+        <div class="form-group">
+            <button type="button" onclick="redirectUser(`/login.html`)">Login</button>
+        </div>
+    </div>
+</div>
+
+<script src="/assets/js/preloader.js"></script>
+<script src="/assets/config/backend-url.js"></script>
+<script src="/assets/js/home.js" ></script>
+
+</body>
+</html>
