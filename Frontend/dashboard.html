@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/dashboard.css">
+    <link rel="stylesheet" href="/assets/css/preloader.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Astra Bank</title>
+</head>
+<body>
+    <div id="preloader-overlay">
+        <div id="preloader"></div>
+    </div>
+    <div id="dashboard-container">
+        <div id="header">
+            <div>
+                <h1>Astra Bank</h1>
+            </div>
+            <div>
+               <span id="username">Welcome, Test</span>
+            </div>
+        </div>
+        <div id="main-container">
+            <div id="sidebar">
+                <ul>
+                    <li onclick="homeTab()">Home</li>
+                    <li onclick="profileTab()">Profile</li>
+                    <li onclick="transactionTab()">Transactions</li>
+                    <li onclick="sendmoneyTab()">Send Money</li>
+                    <li onclick="logout()">Logout</li>
+                </ul>
+            </div>
+            <div id="content">
+                <div class="container" style="text-align: center;">
+                    <h2>Account Balance</h2><br>
+                    <span id="accBalance"></span>
+            </div>
+        </div>
+    </div>
+    <script src="/assets/config/backend-url.js"></script>
+    <script src="/assets/js/preloader.js"></script>
+    <script src="/assets/js/dashboard.js"></script>
+</body>
+</html>

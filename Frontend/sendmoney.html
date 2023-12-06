@@ -1,0 +1,25 @@
+<link rel="stylesheet" href="/assets/css/sendmoney.css">
+<div class="container">
+    <h2 id="heading">Send Money</h2>
+    <form id="registrationForm">
+        
+        <div class="form-group">
+            <label for="firstName">Account Number</label>
+            <input type="text" id="accNumber"  required>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Amount</label>
+            <input type="text" id="accAmount" required>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Remark</label>
+            <input type="text" id="remark" required>
+        </div>
+        <div class="form-group">
+            <button type="button" onclick="sendMoney()">Submit</button>
+        </div>
+    </form>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/assets/js/sendmoney.js"></script>

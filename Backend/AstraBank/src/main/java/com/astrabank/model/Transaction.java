@@ -27,13 +27,15 @@ public class Transaction {
 		this.timestamp= LocalDateTime.now();
 	}
 	
-	@JsonProperty(access = Access.WRITE_ONLY)
+	
 	private String fromAccountNumber;
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String toAccountNumber;
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private LocalDateTime timestamp;
 	private String remark;
+	private long amount;
 	
 	private TransactionStatus transactionType;
 	private TransactionStatus transactionStatus;

@@ -91,6 +91,7 @@ public class CustomerServiceImpl implements CustomerService {
 	    initialTrn.setTransactionMode(TransactionStatus.IMPS);
 	    initialTrn.setTransactionStatus(TransactionStatus.Success);
 	    initialTrn.setTransactionType(TransactionStatus.Credit);
+	    initialTrn.setAmount(1000);
 	    
 	    // updating user balance 
 	    customerAccount.setBalance(1000);

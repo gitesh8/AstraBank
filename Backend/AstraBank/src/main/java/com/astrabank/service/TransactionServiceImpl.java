@@ -61,6 +61,7 @@ public class TransactionServiceImpl implements TransactionService {
 			senderTrn.setTransactionMode(TransactionStatus.IMPS);
 			senderTrn.setTransactionStatus(TransactionStatus.Success);
 			senderTrn.setTransactionType(TransactionStatus.Debit);
+			senderTrn.setAmount(trnRequest.getAmount());
 
 			// creating transaction record for Receiver Account
 
@@ -71,6 +72,7 @@ public class TransactionServiceImpl implements TransactionService {
 			receiverTrn.setTransactionMode(TransactionStatus.IMPS);
 			receiverTrn.setTransactionStatus(TransactionStatus.Success);
 			receiverTrn.setTransactionType(TransactionStatus.Credit);
+			receiverTrn.setAmount(trnRequest.getAmount());
 
 			// updating balance of both accounts
 			Account updateSenderAccount = updateBalance(SenderAccount, trnRequest.getAmount(), "Debit");

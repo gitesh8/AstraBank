@@ -11,7 +11,7 @@ async function submitForm() {
         password: document.getElementById('password').value,
     };
 
-    // TODO: Replace the following placeholder URL with your actual backend API endpoint
+   
     const apiUrl = `${backendUrl}signup`;
 
     // Simulate a POST request to the backend API
@@ -37,6 +37,12 @@ async function submitForm() {
         document.getElementById("accNo").innerText=data["accountNumber"];
         document.getElementById("accHolder").innerText=data["accountHolderName"];
         document.getElementById("sucessmsg").innerText=data["message"];
+    }
+    else{
+        swal({
+            title: `${data["message"]}`,
+            icon: "warning",
+          });
     }
 
     hidePreloader();

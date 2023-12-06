@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;1,400;1,500&display=swap');
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+
+
+#header {
+    background-color: #4285f4;
+    color: #fff;
+    text-align: left;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 24px;
+}
+#username{
+    font-size: 17px;
+}
+
+
+#main-container {
+    display: flex;
+    flex: 1;
+}
+
+#sidebar {
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    padding-top: 20px;
+}
+
+#sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#sidebar ul li {
+    padding: 10px;
+    text-align: left;
+    padding: 16px 31px;
+    cursor: pointer;
+}
+
+#content {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Container */
+#dashboard-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+.container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    padding: 27px 20px;
+    line-height: 16px;
+    box-sizing: border-box;
+}
+#accBalance{
+    margin-top: 20px;
+    font-size: 22px;
+}
+
+@media (max-width: 768px) {
+    #main-container {
+        flex-direction: column;
+    }
+
+    #sidebar {
+        width: 100%;
+        text-align: center;
+    }
+}
