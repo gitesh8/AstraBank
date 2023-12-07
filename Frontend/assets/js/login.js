@@ -1,10 +1,48 @@
+function validateInput(inputValue) {
+    // Check for null or undefined
+    if (inputValue === null || inputValue === undefined) {
+        return false;
+    }
+
+    // Check for empty string
+    if (inputValue.trim() === '') {
+        return false;
+    }
+
+    // Check for a string consisting of only whitespace characters
+    if (/^\s*$/.test(inputValue)) {
+        return false;
+    }
+
+    // If none of the above conditions are met, the input is considered valid
+    return true;
+}
 async function submitForm() {
 
-    showPreloader();
+   
 
+    const userName = document.getElementById('username').value
+    const password = document.getElementById('password').value
+
+    if(!validateInput(userName)){
+        swal({
+            title: `Username is Required`,
+            icon: "error",
+          });
+          return;
+    }
+
+    if(!validateInput(password)){
+        swal({
+            title: `Password is Required`,
+            icon: "error",
+          });
+          return;
+    }
+    showPreloader();
     const formData = {
-        userName: document.getElementById('username').value,
-        password: document.getElementById('password').value,
+       userName: userName,
+        password: password,
     };
 
     // TODO: Replace the following placeholder URL with your actual backend API endpoint

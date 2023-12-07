@@ -15,6 +15,8 @@ import com.astrabank.responseModel.JwtTokenResponse;
 import com.astrabank.responseModel.SignupResponse;
 import com.astrabank.service.CustomerServiceImpl;
 
+import jakarta.validation.Valid;
+
 @RestController
 @CrossOrigin
 public class CustomerController {
@@ -23,13 +25,13 @@ public class CustomerController {
 	private CustomerServiceImpl customerService;
 	
 	@PostMapping("/signup")
-	public ResponseEntity<SignupResponse> signup(@RequestBody SignupRequest signupRequest) throws AuthenticationFailedException{
+	public ResponseEntity<SignupResponse> signup(@Valid @RequestBody SignupRequest signupRequest) throws AuthenticationFailedException{
 		SignupResponse response = customerService.signup(signupRequest);
 		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
 	
 	@PostMapping("/signin")
-	public ResponseEntity<JwtTokenResponse> signin(@RequestBody SigninRequest signinRequest){
+	public ResponseEntity<JwtTokenResponse> signin(@Valid @RequestBody SigninRequest signinRequest){
 		JwtTokenResponse response = customerService.signin(signinRequest.getUserName(), signinRequest.getPassword());
 		return new ResponseEntity<>(response,HttpStatus.OK);
 	}

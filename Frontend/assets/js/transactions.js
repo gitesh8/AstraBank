@@ -6,6 +6,7 @@ async function getTransactions(){
         location.href="/login.html";
     }
 
+    showPreloader();
     const apiUrl = `${backendUrl}auth/transactions`;
 
     // Simulate a POST request to the backend API
@@ -26,9 +27,20 @@ async function getTransactions(){
         tbody.innerHTML = '';
 
 
-        data.forEach(el => {
+        data.forEach((el,index) => {
+
+            let accNumber ="";
+
+            // to avoid showing their own account number
+            if(el.transactionType=="Credit"){
+                accNumber=el.fromAccountNumber;
+            }
+            else{
+                accNumber=el.toAccountNumber;
+            }
             const row =`<tr>
-             <td>${el.fromAccountNumber}</td>
+            <td>${index+1}</td>
+             <td>${accNumber}</td>
              <td>${el.transactionType}</td>
              <td>${el.amount}</td>
              <td>${el.transactionStatus}</td>
@@ -37,6 +49,8 @@ async function getTransactions(){
             </tr>`
             tbody.innerHTML+=row;
         });
+
+        hidePreloader();
 
     }
 }

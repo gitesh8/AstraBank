@@ -11,6 +11,6 @@ import com.astrabank.responseModel.GeneralResponse;
 public interface TransactionService {
 
 	public GeneralResponse sendMoney(TransactionRequest trnRequest) throws GeneralException;
-	public Account updateBalance(Account account,long amount, String type);
+	public boolean updateBalance(Account account,long amount, String type);
 	public List<Transaction> getAllTransactions() throws GeneralException;
 }

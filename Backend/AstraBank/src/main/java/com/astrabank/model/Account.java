@@ -16,6 +16,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -51,6 +52,9 @@ public class Account {
     @OneToMany(cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Transaction> transaction = new ArrayList<>();
+    
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "cardHolderAccount")
+    private Card card;
     
     
 }

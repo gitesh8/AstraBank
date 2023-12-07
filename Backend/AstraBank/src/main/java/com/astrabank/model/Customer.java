@@ -16,6 +16,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,6 +37,9 @@ public class Customer {
 		this.timestamp= LocalDateTime.now();
 	}
 	
+	@NotNull(message = "firstname is required")
+	@NotBlank(message = "firstname is required")
+	@NotEmpty(message = "firstname is required")
 	private String firstName;
 	private String lastName;
 	private LocalDate dob;

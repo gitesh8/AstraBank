@@ -13,6 +13,7 @@ import com.astrabank.model.CustomException;
 
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.security.SignatureException;
+import jakarta.validation.ConstraintViolationException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

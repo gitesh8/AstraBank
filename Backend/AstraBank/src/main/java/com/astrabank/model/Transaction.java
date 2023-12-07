@@ -29,7 +29,6 @@ public class Transaction {
 	
 	
 	private String fromAccountNumber;
-	@JsonProperty(access = Access.WRITE_ONLY)
 	private String toAccountNumber;
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
