@@ -1,6 +1,3 @@
-let hasCard = document.getElementById("hasCard");
-let noCard = document.getElementById("noCard");
-
 async function GenerateCardorViewCard() {
 
     showPreloader();
@@ -24,18 +21,35 @@ async function GenerateCardorViewCard() {
 
     if (response.ok) {
         const data = await response.json();
-        noCard.style.display = "none";
-        hasCard.style.display = "flex";
+        document.getElementById("noCard").style.display = "none";
+        document.getElementById("hasCard").style.display = "flex";
+
+        if(data["status"]!="pinNotSet"){
+          document.getElementById("setPin").style.display="none";
+        }
 
         document.getElementById('cardNumber').innerText = data.cardNumber.toString().replace(/(\d{4})/g, "$1 ");
         document.getElementById('cardExpiry').innerText = data.expiry;
         document.getElementById('cardHolder').innerText = data.cardHolderName;
         document.getElementById('cardCVV').innerText = "Cvv: " + data.cvv;
+
+        // setting card status
+        if(data.status=="Active"){
+            document.getElementById("card-status").style.background="green";
+            document.getElementById("card-status").innerText=data.status;
+        }
+        else{
+            document.getElementById("card-status").style.background="red";
+            document.getElementById("card-status").innerText="Deactive";
+        }
+        
     }
     hidePreloader();
 }
 
 async function checkHasCardorNot() {
+
+    showPreloader();
 
     let jwtToken = localStorage.getItem("jwtToken");
 
@@ -62,6 +76,7 @@ async function checkHasCardorNot() {
             GenerateCardorViewCard();
         }
     }
+    hidePreloader();
 }
 
 function showPinSetModal() {
@@ -108,8 +123,82 @@ function showPinSetModal() {
 
 }
 
-function setPin(pin) {
-    console.log(pin);
+async function setPin(pin) {
+    showPreloader();
+
+    let jwtToken = localStorage.getItem("jwtToken");
+
+    if (jwtToken == null) {
+        location.href = "/login.html";
+    }
+
+    const request={
+        pin:pin
+    }
+
+    const apiUrl = `${backendUrl}auth/card/set-pin`;
+
+    // Simulate a POST request to the backend API
+    const response = await fetch(apiUrl, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtToken}`
+        },
+        body: JSON.stringify(request),
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        document.getElementById("setPin").style.display="none";
+        GenerateCardorViewCard();
+        swal({
+            title: `${data["message"]}`,
+            icon: "success",
+          });
+
+    }
+    hidePreloader();
+}
+
+async function changeCardStatus(){
+
+    showPreloader();
+
+    let jwtToken = localStorage.getItem("jwtToken");
+
+    if (jwtToken == null) {
+        location.href = "/login.html";
+    }
+
+    const apiUrl = `${backendUrl}auth/card/change-status`;
+
+    // Simulate a POST request to the backend API
+    const response = await fetch(apiUrl, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtToken}`
+        }
+    });
+    const data = await response.json();
+    if (response.ok) {
+        
+        swal({
+            title: `${data["message"]}`,
+            icon: "success",
+          });
+    }
+    else{
+        swal({
+            title: `${data["message"]}`,
+            icon: "warning",
+          });
+    }
+    hidePreloader();
+    GenerateCardorViewCard();
+
+
 }
 
 checkHasCardorNot();

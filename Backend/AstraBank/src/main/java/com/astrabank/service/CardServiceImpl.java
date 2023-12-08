@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.astrabank.exception.GeneralException;
 import com.astrabank.model.Account;
+import com.astrabank.model.AccountOrCardStatus;
 import com.astrabank.model.Card;
 import com.astrabank.repository.AccountRepository;
 import com.astrabank.repository.CardRepository;
+import com.astrabank.requestData.SetCardPinRequest;
 import com.astrabank.responseModel.GeneralResponse;
 
 @Service
@@ -94,6 +96,7 @@ public class CardServiceImpl implements CardService {
         userCard.setCardNumber(cardNumber);
         userCard.setCvv(cvv);
         userCard.setExpiry(formattedExpiryDate);
+        userCard.setStatus(AccountOrCardStatus.pinNotSet);
         
         
         // mapping account to card
@@ -107,6 +110,64 @@ public class CardServiceImpl implements CardService {
         
         return savedAccount.getCard();
         
+	}
+
+
+	@Override
+	public GeneralResponse setCardPin(SetCardPinRequest pin) throws GeneralException {
+		// TODO Auto-generated method stub
+		
+		// fetching user account 
+		Account userAccount = accountRepo.findAccountByUsername(userName.getLoggedInUser());
+		
+		// checking if the pin already set
+		if(userAccount.getCard().getPin()!=null) {
+			throw new GeneralException("Pin already set");
+		}
+		
+		// setting pin to card and changing card status
+		userAccount.getCard().setPin(pin.getPin());
+		userAccount.getCard().setStatus(AccountOrCardStatus.Active);
+		
+		
+		// saving card;
+		accountRepo.save(userAccount);
+		
+		GeneralResponse response = new GeneralResponse();
+		response.setMessage("Pin Successfully Set");
+		return response;
+	}
+
+
+	@Override
+	public GeneralResponse changeCardStatus() throws GeneralException{
+		// TODO Auto-generated method stub
+		
+		// fetching user account 
+		Account userAccount = accountRepo.findAccountByUsername(userName.getLoggedInUser());
+		
+		// checking if the pin is set or not 
+		if(userAccount.getCard().getPin()==null) {
+			throw new GeneralException("Set pin to activate the card");
+		}
+		
+		
+		// changing card status vice versa
+		if(userAccount.getCard().getStatus()==AccountOrCardStatus.Active) {
+			userAccount.getCard().setStatus(AccountOrCardStatus.Deactive);
+		}
+		else {
+			userAccount.getCard().setStatus(AccountOrCardStatus.Active);
+		}
+		
+		// saving account
+		accountRepo.save(userAccount);
+		
+		GeneralResponse response =new GeneralResponse();
+		response.setMessage("Card status changed successfully");
+		
+		return response;
+		
 	}
 
 }

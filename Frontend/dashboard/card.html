@@ -20,15 +20,21 @@
             </div>
         </div>
 
-        <div style="text-align: center;"><button onclick="showPinSetModal()">Set Pin</button></div>
+        <div style="text-align: center;"><button id="setPin" onclick="showPinSetModal()">Set Pin</button></div>
     </div>
     <div class="container">
         <h2>Card Control</h2>
+        <div class="card-control">
+           <div>
+             <h3>Card Status</h3>
+           </div>
+           <div><span id="card-status" onclick="changeCardStatus()">Not Available</span></div>
+        </div>
     </div>
 </div>
 
 <div id="noCard" style="text-align: center;">
-    <h2>You do not has any card, Click Below button to order your card</h2><br>
+    <h2>You do not have any card, Click Below button to order your card</h2><br>
     <button onclick="GenerateCardorViewCard()">Order Card</button>
 </div>
 <script src="/assets/js/card.js"></script>

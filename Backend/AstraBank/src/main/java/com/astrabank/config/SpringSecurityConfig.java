@@ -31,6 +31,7 @@ public class SpringSecurityConfig {
 				.authorizeHttpRequests((auth  ->
 				auth.requestMatchers("/signup").permitAll()
 				.requestMatchers("/signin").permitAll()
+				.requestMatchers("/astrapay/**").permitAll()
 				.anyRequest().authenticated()
 				)).formLogin().disable().httpBasic().and().addFilterBefore(jwtFilter,UsernamePasswordAuthenticationFilter.class).build();
 		

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Processing</title>
+    <link rel="stylesheet" href="/assets/css/astrapay.css">
+    <link rel="stylesheet" href="/assets/css/preloader.css">
+</head>
+<body>
+    <div id="preloader-overlay">
+        <div id="preloader"></div>
+    </div>
+
+    <div id="payment-container" class="page">
+        <h2 style="color: #333;">Astrpay Card Payment</h2>
+        <form id="payment-form">
+            <label for="cardNumber">Card Number:</label>
+            <input type="text" id="cardNumber"  placeholder="Enter card number" required>
+    
+            <label for="expiryDate">Expiry Date:</label>
+            <input type="text" id="expiry"  placeholder="MM/YYYY" required>
+    
+            <label for="cvv">CVV:</label>
+            <input type="text" id="cvv" placeholder="Enter CVV" required>
+    
+            <button type="button" onclick="processPayment()">Proceed</button>
+        </form>
+    </div>
+
+<script src="/assets/js/preloader.js"></script>
+<script src="/assets/config/backend-url.js"></script>
+<script src="/assets/js/astrapay.js"></script>
+
+</body>
+</html>

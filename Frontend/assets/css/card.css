@@ -79,7 +79,7 @@ button {
 }
 
 .card-number {
-    font-size: 21px;
+    font-size: 20px;
     background: #200037;
     width: 80%;
     margin-left: 0.5px;
@@ -117,4 +117,16 @@ input{
     width: 37px;
     height: 25px;
     text-align: center;
+}
+.card-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#card-status {
+    color: white;
+    background: green;
+    padding: 2px 10px;
+    border-radius: 23px;
+    cursor: pointer;
 }
