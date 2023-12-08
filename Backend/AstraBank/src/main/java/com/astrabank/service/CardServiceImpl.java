@@ -50,13 +50,15 @@ public class CardServiceImpl implements CardService {
 
 
 	@Override
-	public Card generateCard() throws GeneralException {
+	public Card generateCardOrViewCard() throws GeneralException {
 		// TODO Auto-generated method stub
 		
 		
 		// if the card is already alloted
 		if (checkCardAlloted().getMessage().equals("Yes")) {
-			throw new GeneralException("Only one card allowed for one account");
+			Account userAccount = accountRepo.findAccountByUsername(userName.getLoggedInUser());
+			return userAccount.getCard();
+			
 		}
 		
 		// fetching user account 

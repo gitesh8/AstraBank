@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="/assets/css/card.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
+        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<div id="hasCard" class="main-container-card" style="display: none;">
+    <div class="container">
+        <div class="card-container">
+            <div class="card">
+                <div class="card-face front">
+                    <div class="card-logo"></div>
+                    <div class="card-number" id="cardNumber">XXXX XXXX XXXX XXXX</div>
+                    <div class="card-info">
+                        <div class="card-expiry" id="cardExpiry">MM/YY</div>
+                        <div class="card-holder" id="cardHolder">Cardholder Name</div>
+                    </div>
+                </div>
+                <div class="card-face back">
+                    <div class="card-cvv" id="cardCVV">XXX</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center;"><button onclick="showPinSetModal()">Set Pin</button></div>
+    </div>
+    <div class="container">
+        <h2>Card Control</h2>
+    </div>
+</div>
+
+<div id="noCard" style="text-align: center;">
+    <h2>You do not has any card, Click Below button to order your card</h2><br>
+    <button onclick="GenerateCardorViewCard()">Order Card</button>
+</div>
+<script src="/assets/js/card.js"></script>

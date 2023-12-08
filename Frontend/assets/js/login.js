@@ -60,7 +60,7 @@ async function submitForm() {
     const data = await response.json();
 
     if (data["status"]==true) {
-        location.href="/dashboard.html";
+        location.href="/dashboard";
         localStorage.setItem("jwtToken",data["jwtToken"]);
     }
     else{

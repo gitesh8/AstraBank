@@ -1,0 +1,120 @@
+.container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    padding: 27px 20px;
+    box-sizing: border-box;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+
+
+/* container css */
+.main-container-card {
+    display: flex;
+    gap: 24px;
+    flex-direction: row;
+}
+.card-container {
+    perspective: 1000px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.card {
+    width: 300px;
+    height: 200px;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+}
+
+.card:hover {
+    transform: rotateY(180deg);
+}
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+.front {
+    background: url('/assets/img/card.png') center/cover no-repeat; /* Add this line */
+    color: #fff;
+    background-size: 21rem 21rem;
+}
+
+.back {
+    background: url('/assets/img/card.png') center/cover no-repeat; /* Add this line */
+    transform: rotateY(180deg);
+    background-size: 21rem 21rem;
+    width: 100%;
+}
+button {
+    padding: 7px 41px;
+    background: darkblue;
+    color: white;
+    font-weight: bold;
+    border: 8px solid white;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.card-logo {
+    height: 30px;
+    width: 30px;
+    background: url('your-card-logo.png') center/contain no-repeat;
+    margin: 10px;
+}
+
+.card-number, .card-expiry, .card-holder, .card-cvv {
+    padding: 11px 27px;
+}
+
+.card-number {
+    font-size: 21px;
+    background: #200037;
+    width: 80%;
+    margin-left: 0.5px;
+}
+.card-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-info div {
+    margin: 3px;
+}
+
+.card-cvv {
+    font-size: 1.2em;
+    text-align: right;
+    color: #fff;
+    width: 79%;
+    margin: auto;
+    margin-top: 53px;
+    padding: 8px 10px;
+    border-radius: 5px;
+    background-color: #9fa2a5;
+}
+
+/* Swal */
+.swal-content__div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+input{
+    width: 37px;
+    height: 25px;
+    text-align: center;
+}

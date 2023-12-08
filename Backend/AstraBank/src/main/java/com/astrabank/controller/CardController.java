@@ -26,9 +26,9 @@ public class CardController {
 		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
 	
-	@PostMapping("/auth/card/new")
+	@PostMapping("/auth/card/view-card-or-new")
 	public ResponseEntity<Card> generateCard() throws GeneralException{
-		Card response = cardService.generateCard();
+		Card response = cardService.generateCardOrViewCard();
 		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
 }

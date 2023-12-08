@@ -4,7 +4,7 @@ function profileTab() {
     });
 }
 function homeTab() {
-    location.href="/dashboard.html";
+    location.href="/dashboard";
     
 }
 function transactionTab() {
@@ -17,10 +17,15 @@ function sendmoneyTab() {
         $("#content").load("sendmoney.html");
     });
 }
+function cardTab() {
+    $(document).ready(function () {
+        $("#content").load("card.html");
+    });
+}
 
 function logout() {
     localStorage.clear();
-    location.href="login.html"
+    location.href="../login.html"
 }
 
 

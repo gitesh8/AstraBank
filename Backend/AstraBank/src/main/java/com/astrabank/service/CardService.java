@@ -7,6 +7,6 @@ import com.astrabank.responseModel.GeneralResponse;
 public interface CardService {
 
 	public GeneralResponse checkCardAlloted();
-	public Card generateCard() throws GeneralException;
+	public Card generateCardOrViewCard() throws GeneralException;
 	
 }
