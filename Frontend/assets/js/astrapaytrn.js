@@ -3,6 +3,11 @@ const urlParams = new URLSearchParams(window.location.search);
 
 // Get individual parameter values
 const pay = urlParams.get('pay');
+
+if (!pay) {
+  // Redirect to another page
+  window.location.href = '../astrapay/';
+}
 async function getTrnDetails(){
 
     showPreloader();

@@ -85,6 +85,12 @@ public class AstraPayServiceImpl implements AstraPayService {
 			throw new GeneralException("Invalid Transaction");
 		}
 		
+		// checking if transaction already completed
+		if(trnDetails.getStatus()!=TransactionStatus.Pending) {
+			throw new GeneralException("Page Expired");
+		}
+		
+		
 		return trnDetails;
 	}
 
@@ -99,7 +105,7 @@ public class AstraPayServiceImpl implements AstraPayService {
 		if(userTrn==null) {
 			throw new GeneralException("Invalid Transaction Details");
 		}
-		
+
 		// getting the user account
 		
 		Account trnAccount = accountRepo.findAccountByAccountNumber(userTrn.getUserAccountNumber());
@@ -174,6 +180,8 @@ public class AstraPayServiceImpl implements AstraPayService {
 		userTransaction.setTransactionStatus(TransactionStatus.Success);
 		userTransaction.setTransactionType(TransactionStatus.Debit);
 		
+		// setting transaction status to success
+		userTrn.setStatus(TransactionStatus.Success);
 		
 		// mapping the transaction to the user 
 		trnAccount.getTransaction().add(userTransaction);
