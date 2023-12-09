@@ -39,7 +39,9 @@ public class AstraPayTransaction {
 	private String userCardNumber;
 	
 	private String accountNumberLast4digits;
+	private long amount;
 	
+	private String remark;
 	
 	private LocalDateTime timestamp;
 	

@@ -24,8 +24,8 @@ async function GenerateCardorViewCard() {
         document.getElementById("noCard").style.display = "none";
         document.getElementById("hasCard").style.display = "flex";
 
-        if(data["status"]!="pinNotSet"){
-          document.getElementById("setPin").style.display="none";
+        if (data["status"] != "pinNotSet") {
+            document.getElementById("setPin").style.display = "none";
         }
 
         document.getElementById('cardNumber').innerText = data.cardNumber.toString().replace(/(\d{4})/g, "$1 ");
@@ -34,15 +34,15 @@ async function GenerateCardorViewCard() {
         document.getElementById('cardCVV').innerText = "Cvv: " + data.cvv;
 
         // setting card status
-        if(data.status=="Active"){
-            document.getElementById("card-status").style.background="green";
-            document.getElementById("card-status").innerText=data.status;
+        if (data.status == "Active") {
+            document.getElementById("card-status").style.background = "green";
+            document.getElementById("card-status").innerText = data.status;
         }
-        else{
-            document.getElementById("card-status").style.background="red";
-            document.getElementById("card-status").innerText="Deactive";
+        else {
+            document.getElementById("card-status").style.background = "red";
+            document.getElementById("card-status").innerText = "Deactive";
         }
-        
+
     }
     hidePreloader();
 }
@@ -132,8 +132,8 @@ async function setPin(pin) {
         location.href = "/login.html";
     }
 
-    const request={
-        pin:pin
+    const request = {
+        pin: pin
     }
 
     const apiUrl = `${backendUrl}auth/card/set-pin`;
@@ -150,18 +150,33 @@ async function setPin(pin) {
 
     if (response.ok) {
         const data = await response.json();
-        document.getElementById("setPin").style.display="none";
+        document.getElementById("setPin").style.display = "none";
         GenerateCardorViewCard();
+
         swal({
             title: `${data["message"]}`,
             icon: "success",
-          });
+        });
 
+
+    }
+    else if (response.status == 403) {
+        swal({
+            title: `${data["message"]}`,
+            icon: "error",
+        });
+
+    }
+    else {
+        swal({
+            title: `Something Went Wrong`,
+            icon: "error",
+        });
     }
     hidePreloader();
 }
 
-async function changeCardStatus(){
+async function changeCardStatus() {
 
     showPreloader();
 
@@ -183,17 +198,17 @@ async function changeCardStatus(){
     });
     const data = await response.json();
     if (response.ok) {
-        
+
         swal({
             title: `${data["message"]}`,
             icon: "success",
-          });
+        });
     }
-    else{
+    else {
         swal({
             title: `${data["message"]}`,
             icon: "warning",
-          });
+        });
     }
     hidePreloader();
     GenerateCardorViewCard();

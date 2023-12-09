@@ -70,11 +70,11 @@ public class CardServiceImpl implements CardService {
         long timestamp = System.currentTimeMillis();
 		
 		// generating card number with timestamp 
-		String formattedTimestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date(timestamp));
+		String formattedTimestamp = new SimpleDateFormat("MMmmyyyyddssHH").format(new Date(timestamp));
 		
 		// Generate 4 digit random numbers
         Random random = new Random();
-        int randomNumbers = 1000 + random.nextInt(9000);
+        int randomNumbers = 10 + random.nextInt(90);
         
         // adding timestamp and random numbers
         String cardNumber = formattedTimestamp + randomNumbers;

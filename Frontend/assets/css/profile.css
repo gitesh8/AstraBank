@@ -38,3 +38,18 @@ select {
     gap: 24px;
     flex-direction: row;
 }
+
+/* media queries */
+@media (max-width:914px) {
+    th, td {
+        display: block;
+        width: 100%;
+    }
+
+    th {
+        text-align: left;
+    }
+    .main-container-profile {
+        flex-direction: column;
+    }
+}

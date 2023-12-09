@@ -63,7 +63,13 @@ async function submitForm() {
         location.href="/dashboard";
         localStorage.setItem("jwtToken",data["jwtToken"]);
     }
-    else{
+    else if(response.status===401 || data["message"]=="Bad credentials"){
+        swal({
+            title: `Invalid Credientials`,
+            icon: "error",
+          });
+    }
+    else if(response.status===403){
         swal({
             title: `${data["message"]}`,
             icon: "error",

@@ -1,24 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/dashboard.css">
     <link rel="stylesheet" href="/assets/css/preloader.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>Astra Bank</title>
 </head>
+
 <body>
     <div id="preloader-overlay">
         <div id="preloader"></div>
     </div>
     <div id="dashboard-container">
         <div id="header">
-            <div>
-                <h1>Astra Bank</h1>
+            <div style="display: flex;flex-direction: row;align-items: center;gap: 11px;">
+                <div id="menuOpen"> <i  style="font-size: 20px; display: none;" class="fa-solid fa-bars" onclick="handleMenu(`Open`)"></i></div>
+                <div id="closeMenu" style="font-size: 20px; display:none" ><i   class="fa-solid fa-xmark" onclick="handleMenu(`Close`)"></i></div>
+                <div>
+                    <h1>Astra Bank</h1>
+                </div>
             </div>
             <div>
-               <span id="username">Welcome, Test</span>
+                <span id="username">Welcome, Test</span>
             </div>
         </div>
         <div id="main-container">
@@ -27,6 +39,7 @@
                     <li onclick="homeTab()">Home</li>
                     <li onclick="profileTab()">Profile</li>
                     <li onclick="cardTab()">Card</li>
+                    <li onclick="astrapay()">Astra Pay</li>
                     <li onclick="transactionTab()">Transactions</li>
                     <li onclick="sendmoneyTab()">Send Money</li>
                     <li onclick="logout()">Logout</li>
@@ -36,11 +49,12 @@
                 <div class="container" style="text-align: center;">
                     <h2>Account Balance</h2><br>
                     <span id="accBalance"></span>
+                </div>
             </div>
         </div>
-    </div>
-    <script src="/assets/config/backend-url.js"></script>
-    <script src="/assets/js/preloader.js"></script>
-    <script src="/assets/js/dashboard.js"></script>
+        <script src="/assets/config/backend-url.js"></script>
+        <script src="/assets/js/preloader.js"></script>
+        <script src="/assets/js/dashboard.js"></script>
 </body>
+
 </html>

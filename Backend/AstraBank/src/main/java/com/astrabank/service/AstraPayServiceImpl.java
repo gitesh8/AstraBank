@@ -6,31 +6,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.astrabank.exception.GeneralException;
+import com.astrabank.model.Account;
+import com.astrabank.model.AccountOrCardStatus;
 import com.astrabank.model.AstraPayTransaction;
 import com.astrabank.model.Card;
+import com.astrabank.model.Transaction;
+import com.astrabank.model.TransactionStatus;
 import com.astrabank.repository.AccountRepository;
 import com.astrabank.repository.AstraPayRepository;
 import com.astrabank.repository.CardRepository;
 import com.astrabank.repository.TransactionRepository;
 import com.astrabank.requestData.AstraPayCardDetails;
+import com.astrabank.responseModel.GeneralResponse;
 
 @Service
 public class AstraPayServiceImpl implements AstraPayService {
 	
-	@Autowired
-	private TransactionRepository trnRepo;
 
 	@Autowired
 	private AccountRepository accountRepo;
-
-	@Autowired
-	private CurrentLoggedinUser userName;
 	
 	@Autowired
 	private CardRepository cardRepo;
 
 	@Autowired
 	private AstraPayRepository astraPayRepo;
+	
+	@Autowired
+	private TransactionServiceImpl trnService;
 	
 	@Override
 	public AstraPayTransaction generateTransactionId(AstraPayCardDetails userCardDetails) throws GeneralException {
@@ -60,6 +63,7 @@ public class AstraPayServiceImpl implements AstraPayService {
 		astrapayid.setTransactionId(UUID.randomUUID().toString());
 		astrapayid.setUserAccountNumber(userAccountNumber);
 		astrapayid.setUserCardNumber(userCard.getCardNumber());
+		astrapayid.setAmount(userCardDetails.getAmount());
 		
 		// saving to database 
 		astraPayRepo.save(astrapayid);
@@ -82,6 +86,106 @@ public class AstraPayServiceImpl implements AstraPayService {
 		}
 		
 		return trnDetails;
+	}
+
+	@Override
+	public GeneralResponse processCardTransaction(AstraPayCardDetails userPinAndTid) throws GeneralException {
+		// TODO Auto-generated method stub
+		
+		// getting the transaction details from transactionId;
+		AstraPayTransaction userTrn =  astraPayRepo.findTransactionDetailsById(userPinAndTid.getTransactionId());
+		
+		//checking if it is found
+		if(userTrn==null) {
+			throw new GeneralException("Invalid Transaction Details");
+		}
+		
+		// getting the user account
+		
+		Account trnAccount = accountRepo.findAccountByAccountNumber(userTrn.getUserAccountNumber());
+		
+		// checking the account is deactivated or not 
+		if(trnAccount.getStatus()!=AccountOrCardStatus.Active) {
+			
+			// setting transaction status to failed
+			userTrn.setStatus(TransactionStatus.Failed);
+			userTrn.setRemark("Card holder is account is deactive");
+			
+			
+			// saving the transactions 
+			astraPayRepo.save(userTrn);
+			
+			throw new GeneralException("Card holder is account is deactive");
+		}
+		
+		// checking the card account is deactivated or not 
+		if(trnAccount.getCard().getStatus()!=AccountOrCardStatus.Active) {
+			
+			// setting transaction status to failed
+			userTrn.setStatus(TransactionStatus.Failed);
+			userTrn.setRemark("Card is deactive");
+			
+			
+			// saving the transactions 
+			astraPayRepo.save(userTrn);
+			
+			throw new GeneralException("Card is deactive");
+		}
+		
+		// checking if the pin is correct 
+		if(!trnAccount.getCard().getPin().equals(userPinAndTid.getPin())) {
+			
+			// setting transaction status to failed
+			userTrn.setStatus(TransactionStatus.Failed);
+			userTrn.setRemark("Invalid card pin entered");
+			
+			
+			// saving the transactions 
+			astraPayRepo.save(userTrn);
+			
+			throw new GeneralException("Invalid card pin entered");
+		}
+		
+		// checking the sufficient amount is present or not 
+		
+		if(trnAccount.getBalance()<userTrn.getAmount()) {
+			
+			// setting transaction status to failed
+			userTrn.setStatus(TransactionStatus.Failed);
+			userTrn.setRemark("Insufficient balance");
+			
+			
+			// saving the transactions 
+			astraPayRepo.save(userTrn);
+			
+			throw new GeneralException("Insufficient balance");
+		}
+		
+		// deducting balance from user
+		trnService.updateBalance(trnAccount, userTrn.getAmount(), "Debit");
+		
+		
+		Transaction userTransaction = new Transaction();
+		userTransaction.setAmount(userTrn.getAmount());
+		userTransaction.setFromAccountNumber(trnAccount.getAccountNumber());
+		userTransaction.setRemark("Card ending "+userTrn.getUserCardNumber().substring(userTrn.getUserCardNumber().length()-4));
+		userTransaction.setToAccountNumber("Astra Pay");
+		userTransaction.setTransactionMode(TransactionStatus.CARD);
+		userTransaction.setTransactionStatus(TransactionStatus.Success);
+		userTransaction.setTransactionType(TransactionStatus.Debit);
+		
+		
+		// mapping the transaction to the user 
+		trnAccount.getTransaction().add(userTransaction);
+		
+		// saving account
+		accountRepo.save(trnAccount);
+		
+		GeneralResponse response = new GeneralResponse();
+		response.setMessage("Transaction Successfull");;
+		
+		return response;
+		
 	}
 
 }

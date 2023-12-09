@@ -1,41 +1,73 @@
+var mediaQuery = window.matchMedia("(max-width: 914px)");
 function profileTab() {
+    if (mediaQuery.matches) {
+        document.getElementById("sidebar").style.display = "none";
+    }
+
     $(document).ready(function () {
         $("#content").load("profile.html");
     });
 }
 function homeTab() {
-    location.href="/dashboard";
-    
+    location.href = "/dashboard";
+
 }
 function transactionTab() {
+    if (mediaQuery.matches) {
+        document.getElementById("sidebar").style.display = "none";
+    }
     $(document).ready(function () {
         $("#content").load("transactions.html");
     });
 }
 function sendmoneyTab() {
+    if (mediaQuery.matches) {
+        document.getElementById("sidebar").style.display = "none";
+    }
     $(document).ready(function () {
         $("#content").load("sendmoney.html");
     });
 }
 function cardTab() {
+    if (mediaQuery.matches) {
+        document.getElementById("sidebar").style.display = "none";
+    }
     $(document).ready(function () {
         $("#content").load("card.html");
     });
 }
 
+function astrapay() {
+    location.href = "../astrapay/"
+}
+
 function logout() {
     localStorage.clear();
-    location.href="../login.html"
+    location.href = "../login.html"
+}
+
+function handleMenu(option) {
+    if (option == "Open") {
+        document.getElementById("sidebar").style.display = "block";
+        document.getElementById("menuOpen").style.display = "none";
+        document.getElementById("closeMenu").style.display = "block";
+    }
+    else {
+        document.getElementById("sidebar").style.display = "none";
+        document.getElementById("closeMenu").style.display = "none";
+
+        document.getElementById("menuOpen").style.display = "block";
+
+    }
 }
 
 
-
-async function getUserDetails(){
+async function getUserDetails() {
 
     let jwtToken = localStorage.getItem("jwtToken");
 
-    if(jwtToken==null){
-        location.href="/login.html";
+    if (jwtToken == null) {
+        location.href = "/login.html";
     }
 
     const apiUrl = `${backendUrl}auth/dashboard`;
@@ -49,11 +81,11 @@ async function getUserDetails(){
         }
     });
 
-    if(response.ok){
+    if (response.ok) {
         const responseData = await response.json();
-        
-        document.getElementById("username").innerText=`Welcome, ${responseData["customer"]["firstName"]}`;
-        document.getElementById("accBalance").innerText=`Rs ${responseData["balance"]}`;
+
+        document.getElementById("username").innerText = `Welcome, ${responseData["customer"]["firstName"]}`;
+        document.getElementById("accBalance").innerText = `Rs ${responseData["balance"]}`;
     }
 
 }

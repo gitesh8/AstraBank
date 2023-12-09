@@ -14,4 +14,5 @@ public class AstraPayCardDetails {
 	private String expiry;
 	private long amount;
 	private String pin;
+	private String transactionId;
 }

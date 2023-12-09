@@ -130,3 +130,10 @@ input{
     border-radius: 23px;
     cursor: pointer;
 }
+
+/* Media Queries */
+@media (max-width: 917px) {
+    .main-container-card {
+        flex-direction: column;
+    }
+}

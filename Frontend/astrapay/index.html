@@ -6,6 +6,9 @@
     <title>Payment Processing</title>
     <link rel="stylesheet" href="/assets/css/astrapay.css">
     <link rel="stylesheet" href="/assets/css/preloader.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
+    integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
     <div id="preloader-overlay">
@@ -13,7 +16,7 @@
     </div>
 
     <div id="payment-container" class="page">
-        <h2 style="color: #333;">Astrpay Card Payment</h2>
+        <h2 style="color: #333;">Astra Pay</h2>
         <form id="payment-form">
             <label for="cardNumber">Card Number:</label>
             <input type="text" id="cardNumber"  placeholder="Enter card number" required>
@@ -23,6 +26,9 @@
     
             <label for="cvv">CVV:</label>
             <input type="text" id="cvv" placeholder="Enter CVV" required>
+
+            <label for="cvv">Amount:</label>
+            <input type="text" id="amount" placeholder="Enter Amount" required>
     
             <button type="button" onclick="processPayment()">Proceed</button>
         </form>

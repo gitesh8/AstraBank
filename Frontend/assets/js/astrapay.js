@@ -5,8 +5,14 @@ async function processPayment() {
     const cardNumber = document.getElementById("cardNumber").value;
     const expiry = document.getElementById("expiry").value;
     const cvv = document.getElementById("cvv").value;
+    const amount = document.getElementById("amount").value;
 
     if(!validateInput(cardNumber) || !validateInput(expiry) || !validateInput(cvv)){
+        swal({
+            title: `All Fields are Required`,
+            icon: "warning",
+          })
+          hidePreloader();
         return;
     }
 
@@ -14,7 +20,7 @@ async function processPayment() {
         cardNumber:cardNumber,
         expiry:expiry,
         cvv:cvv,
-        amount:1
+        amount:amount
     }
 
     const apiUrl = `${backendUrl}astrapay/card`;
@@ -31,6 +37,12 @@ async function processPayment() {
     const data = await response.json();
     if (response.ok && data["status"]=="Pending") {
         location.href=`verifytrn.html?pay=${data.transactionId}`;
+    }
+    else if(response.status==403){
+        swal({
+            title: `${data["status"]}`,
+            icon: "success",
+          })
     }
     hidePreloader();
 }

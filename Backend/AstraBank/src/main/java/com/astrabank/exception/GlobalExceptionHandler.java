@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
 		
 		CustomException response = new CustomException(w.getDescription(false),g.getMessage());
 		
-		return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(response,HttpStatus.FORBIDDEN);
 	}
 	
 	
