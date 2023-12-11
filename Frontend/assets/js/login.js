@@ -1,3 +1,11 @@
+// Get the URLSearchParams object
+const urlParams = new URLSearchParams(window.location.search);
+
+// Get individual parameter values
+const serverStatus = urlParams.get('server-status');
+if(serverStatus!="started"){
+    location.href = "starting-server.html?redirect=login.html";
+}
 function validateInput(inputValue) {
     // Check for null or undefined
     if (inputValue === null || inputValue === undefined) {
@@ -19,29 +27,29 @@ function validateInput(inputValue) {
 }
 async function submitForm() {
 
-   
+
 
     const userName = document.getElementById('username').value
     const password = document.getElementById('password').value
 
-    if(!validateInput(userName)){
+    if (!validateInput(userName)) {
         swal({
             title: `Username is Required`,
             icon: "error",
-          });
-          return;
+        });
+        return;
     }
 
-    if(!validateInput(password)){
+    if (!validateInput(password)) {
         swal({
             title: `Password is Required`,
             icon: "error",
-          });
-          return;
+        });
+        return;
     }
     showPreloader();
     const formData = {
-       userName: userName,
+        userName: userName,
         password: password,
     };
 
@@ -59,26 +67,26 @@ async function submitForm() {
 
     const data = await response.json();
 
-    if (data["status"]==true) {
-        location.href="/dashboard";
-        localStorage.setItem("jwtToken",data["jwtToken"]);
+    if (data["status"] == true) {
+        location.href = "/dashboard";
+        localStorage.setItem("jwtToken", data["jwtToken"]);
     }
-    else if(response.status===401 || data["message"]=="Bad credentials"){
+    else if (response.status === 401 || data["message"] == "Bad credentials") {
         swal({
             title: `Invalid Credientials`,
             icon: "error",
-          });
+        });
     }
-    else if(response.status===403){
+    else if (response.status === 403) {
         swal({
             title: `${data["message"]}`,
             icon: "error",
-          });
+        });
     }
 
     hidePreloader();
 }
 
-function redirectUser(url){
-    location.href=url;
+function redirectUser(url) {
+    location.href = url;
 }

@@ -1,9 +1,11 @@
 package com.astrabank.controller;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +36,11 @@ public class CustomerController {
 	public ResponseEntity<JwtTokenResponse> signin(@Valid @RequestBody SigninRequest signinRequest){
 		JwtTokenResponse response = customerService.signin(signinRequest.getUserName(), signinRequest.getPassword());
 		return new ResponseEntity<>(response,HttpStatus.OK);
+	}
+	
+	@GetMapping("/start-server")
+	public ResponseEntity<String> start_server(){
+		return new ResponseEntity<>("Server Started",HttpStatus.OK);
 	}
 
 }

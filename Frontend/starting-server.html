@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Deployment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: #efefef;
+            margin: 0;
+        }
+
+        .message {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 31px;
+            font-weight: 600;
+        }
+
+        .preloader {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            border: 20px solid #ffffff00;
+            border-top: 20px solid #002bff;
+            border-bottom: 20px solid red;
+            border-radius: 50%;
+            animation: spin 0.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="message">
+        <p>Backend is deployed on render, it will take time to start the server.</p>
+        <p>This page will automatically redirect, Once the server started</p>
+    </div>
+    <div class="preloader"></div>
+
+    <script>
+
+        // Get the URLSearchParams object
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // Get individual parameter values
+        const redirect = urlParams.get('redirect');
+
+       
+        async function startServerAndRedirect() {
+            try {
+                const response = await fetch('');
+                const data = await response.json();
+
+                if (data.message === 'Server Started') {
+                    window.location.replace(`/${redirect}?server-status=started`);
+                } else {
+                    setTimeout(startServerAndRedirect, 5000); // Retry after 5 seconds
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                setTimeout(startServerAndRedirect, 5000); // Retry after 5 seconds
+            }
+        }
+        window.location.replace(`/${redirect}?server-status=started`);
+        
+
+        // Start the server and redirect when the page loads
+        window.onload = startServerAndRedirect;
+    </script>
+</body>
+
+</html>

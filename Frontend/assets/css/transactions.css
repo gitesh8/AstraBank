@@ -3,6 +3,9 @@ table {
     border-collapse: collapse;
     margin-top: 20px;
 }
+tr{
+    background: #80808014;
+}
 
 th, td {
     padding: 12px;

@@ -1,3 +1,11 @@
+// Get the URLSearchParams object
+const urlParams = new URLSearchParams(window.location.search);
+
+// Get individual parameter values
+const serverStatus = urlParams.get('server-status');
+if(serverStatus!="started"){
+    location.href = "starting-server.html?redirect=signup.html";
+}
 function validateInput(inputValue) {
     // Check for null or undefined
     if (inputValue === null || inputValue === undefined) {
