@@ -79,9 +79,6 @@
                 setTimeout(startServerAndRedirect, 5000); // Retry after 5 seconds
             }
         }
-        window.location.replace(`/${redirect}?server-status=started`);
-        
-
         // Start the server and redirect when the page loads
         window.onload = startServerAndRedirect;
     </script>
