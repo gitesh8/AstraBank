@@ -6,7 +6,9 @@ body {
     background-color: #f4f4f4;
 }
 
-
+#menuOpen{
+    display: none;
+}
 
 #header {
     background-color: #4285f4;
@@ -87,5 +89,8 @@ body {
     }
     #header{
         padding:0px 7px;
+    }
+   #menuOpen{
+        display: block;
     }
 }

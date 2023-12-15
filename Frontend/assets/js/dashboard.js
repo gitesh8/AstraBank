@@ -2,6 +2,7 @@ var mediaQuery = window.matchMedia("(max-width: 914px)");
 function profileTab() {
     if (mediaQuery.matches) {
         document.getElementById("sidebar").style.display = "none";
+        handleMenu("Close")
     }
 
     $(document).ready(function () {
@@ -13,24 +14,30 @@ function homeTab() {
 
 }
 function transactionTab() {
+   
     if (mediaQuery.matches) {
         document.getElementById("sidebar").style.display = "none";
+        handleMenu("Close")
     }
     $(document).ready(function () {
         $("#content").load("transactions.html");
     });
 }
 function sendmoneyTab() {
+   
     if (mediaQuery.matches) {
         document.getElementById("sidebar").style.display = "none";
+        handleMenu("Close")
     }
     $(document).ready(function () {
         $("#content").load("sendmoney.html");
     });
 }
 function cardTab() {
+    
     if (mediaQuery.matches) {
         document.getElementById("sidebar").style.display = "none";
+        handleMenu("Close")
     }
     $(document).ready(function () {
         $("#content").load("card.html");
@@ -38,7 +45,11 @@ function cardTab() {
 }
 
 function astrapay() {
-    location.href = "../astrapay/"
+    if (mediaQuery.matches) {
+        document.getElementById("sidebar").style.display = "none";
+        handleMenu("Close")
+    }
+  window.open("../astrapay/");
 }
 
 function logout() {

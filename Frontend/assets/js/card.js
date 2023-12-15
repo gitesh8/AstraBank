@@ -104,6 +104,16 @@ function showPinSetModal() {
             const pin3 = document.getElementById('pin-input-3').value;
             const pin4 = document.getElementById('pin-input-4').value;
 
+           if(!validateInput(pin1) || !validateInput(pin2) || !validateInput(pin3) || !validateInput(pin4)){
+            swal({
+                title: `Enter 4 Digit Pin`,
+                icon: "warning",
+            });
+            return;
+           }
+
+            
+
             let pin = pin1 + pin2 + pin3 + pin4;
 
             setPin(pin);
@@ -214,6 +224,25 @@ async function changeCardStatus() {
     GenerateCardorViewCard();
 
 
+}
+function validateInput(inputValue) {
+    // Check for null or undefined
+    if (inputValue === null || inputValue === undefined) {
+        return false;
+    }
+
+    // Check for empty string
+    if (inputValue.trim() === '') {
+        return false;
+    }
+
+    // Check for a string consisting of only whitespace characters
+    if (/^\s*$/.test(inputValue)) {
+        return false;
+    }
+
+    // If none of the above conditions are met, the input is considered valid
+    return true;
 }
 
 checkHasCardorNot();

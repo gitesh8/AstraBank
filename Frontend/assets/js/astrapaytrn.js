@@ -94,9 +94,20 @@ async function processTransaction(){
               location.href="../dashboard/"
             }
           });
-       
+
     }
     hidePreloader();
-    
+
 }
+// Add event listeners to move to the next input field
+const inputFields = document.querySelectorAll('.pin-input-field');
+inputFields.forEach((input, index) => {
+  input.addEventListener('input', (event) => {
+    const value = event.target.value;
+    if (value !== '' && index < inputFields.length - 1) {
+      inputFields[index + 1].focus();
+    }
+  });
+});
 getTrnDetails()
+
