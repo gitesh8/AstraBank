@@ -26,7 +26,7 @@ async function getTrnDetails(){
 
     const data = await response.json();
     if (response.ok && data["status"]=="Pending") {
-        lastDigits.innerHTML=`${data["accountNumberLast4digits"]}`;
+        lastDigits.innerHTML=`XXXX-XXXX-XXX-${data["accountNumberLast4digits"]}`;
     }
     else{
         location.href="../dashboard/"
