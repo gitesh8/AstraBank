@@ -23,9 +23,6 @@ import jakarta.transaction.Transactional;
 public class TransactionServiceImpl implements TransactionService {
 
 	@Autowired
-	private TransactionRepository trnRepo;
-
-	@Autowired
 	private AccountRepository accountRepo;
 
 	@Autowired
@@ -49,6 +46,11 @@ public class TransactionServiceImpl implements TransactionService {
 		// checking if the account has the balance
 		if (SenderAccount.getBalance() < trnRequest.getAmount()) {
 			throw new GeneralException("Insufficient Funds");
+		}
+		
+		// checking if the amount is greater than zero
+		if(trnRequest.getAmount()<=0) {
+			throw new GeneralException("Amount should be greater than 0");
 		}
 
 		// getting the account to receiverUser

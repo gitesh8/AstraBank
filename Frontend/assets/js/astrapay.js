@@ -7,7 +7,7 @@ async function processPayment() {
     const cvv = document.getElementById("cvv").value;
     const amount = document.getElementById("amount").value;
 
-    if(!validateInput(cardNumber) || !validateInput(expiry) || !validateInput(cvv)){
+    if(!validateInput(cardNumber) || !validateInput(expiry) || !validateInput(cvv) || !validateInput(amount)){
         swal({
             title: `All Fields are Required`,
             icon: "warning",
@@ -40,8 +40,8 @@ async function processPayment() {
     }
     else if(response.status==403){
         swal({
-            title: `${data["status"]}`,
-            icon: "success",
+            title: `${data["message"]}`,
+            icon: "error",
           })
     }
     hidePreloader();

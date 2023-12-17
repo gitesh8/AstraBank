@@ -42,6 +42,11 @@ public class AstraPayServiceImpl implements AstraPayService {
 		// getting card detail 
 		Card userCard = cardRepo.findCardbyCardNumber(userCardDetails.getCardNumber());
 		
+		// checking if the amount is greater than zero
+		if(userCardDetails.getAmount()<=0) {
+			throw new GeneralException("Amount should be greater than 0");
+		}
+		
 		// check if the card number is exists or not 
 		if(userCard==null) {
 			throw new GeneralException("Invalid Card Details");
