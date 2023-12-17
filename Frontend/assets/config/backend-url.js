@@ -1,2 +1,2 @@
-const backendUrl = 'http://localhost:8080/';
+const backendUrl = 'https://astrbank.onrender.com/';
 

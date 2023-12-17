@@ -98,6 +98,9 @@ async function getUserDetails() {
         document.getElementById("username").innerText = `Welcome, ${responseData["customer"]["firstName"]}`;
         document.getElementById("accBalance").innerText = `Rs ${responseData["balance"]}`;
     }
+    else{
+        logout();
+    }
 
 }
 
