@@ -1,3 +1,10 @@
+// checking if the user already logged in
+let jwtToken = localStorage.getItem("jwtToken");
+
+if (jwtToken != null) {
+    location.href = "/dashboard/";
+}
+
 // Get the URLSearchParams object
 const urlParams = new URLSearchParams(window.location.search);
 
