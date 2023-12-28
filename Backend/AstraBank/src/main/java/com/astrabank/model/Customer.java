@@ -42,6 +42,7 @@ public class Customer {
 	@NotEmpty(message = "firstname is required")
 	private String firstName;
 	private String lastName;
+	private String email;
 	private LocalDate dob;
 	
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)

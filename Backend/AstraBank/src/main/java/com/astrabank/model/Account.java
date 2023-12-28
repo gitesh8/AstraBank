@@ -35,7 +35,7 @@ public class Account {
 	
 	private String accountNumber;
     private AccountType accountType;
-    private AccountOrCardStatus status=AccountOrCardStatus.Active;
+    private AccountOrCardStatus status=AccountOrCardStatus.Deactive;
     private long balance;
     
     

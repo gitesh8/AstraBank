@@ -94,3 +94,18 @@ body {
         display: block;
     }
 }
+/* email verification */
+input#email-verification{
+    padding: 7px 18px;
+    width: 65%;
+    font-size: 13px;
+    border-width: 0px 0px 2px 0px;
+    outline: none;
+}
+input#email-verification-otp {
+    padding: 7px 18px;
+    width: 20%;
+    font-size: 13px;
+    border-width: 0px 0px 2px 0px;
+    outline: none;
+}

@@ -1,6 +1,9 @@
 // checking if the user already logged in
 let jwtToken = localStorage.getItem("jwtToken");
 
+// regular expression to match only alphanumeric characters
+var alphanumericRegex = /^[a-zA-Z0-9]+$/;
+
 if (jwtToken != null) {
     location.href = "/dashboard/";
 }
@@ -13,7 +16,7 @@ const serverStatus = urlParams.get('server-status');
 if(serverStatus!="started"){
     location.href = "starting-server.html?redirect=signup.html";
 }
-function validateInput(inputValue) {
+function validateInput(inputValue,type) {
     // Check for null or undefined
     if (inputValue === null || inputValue === undefined) {
         return false;
@@ -26,6 +29,10 @@ function validateInput(inputValue) {
 
     // Check for a whitespace characters
     if (/^\s*$/.test(inputValue)) {
+        return false;
+    }
+
+    if(type=="username" && !alphanumericRegex.test(inputValue.trim())){
         return false;
     }
 
@@ -75,9 +82,9 @@ async function submitForm() {
         return;
     }
 
-    if (!validateInput(username)) {
+    if (!validateInput(username,"username")) {
         swal({
-            title: `Username is required`,
+            title: `Username Should  only contain Character and Number`,
             icon: "warning",
           });
         return;

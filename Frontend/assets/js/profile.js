@@ -27,6 +27,15 @@ async function getUserDetails(){
         document.getElementById("firstname").value=data["customer"]["firstName"];
         document.getElementById("lastname").value=data["customer"]["lastName"];
         document.getElementById("dob").value=data["customer"]["dob"];
+
+        // checking if the email exists
+        if(data["customer"]["email"]!=null){
+            document.getElementById("email").value=data["customer"]["email"];
+        }
+        else{
+            document.getElementById("email").value="Not Available";
+        }
+       
     }
 
 }
