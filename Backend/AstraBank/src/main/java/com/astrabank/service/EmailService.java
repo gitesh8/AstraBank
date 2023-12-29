@@ -11,4 +11,6 @@ public interface EmailService {
 	public boolean SendEmail(EmailBody emailBody) throws GeneralException;
 	public GeneralResponse EmailVerification(RequestEmailorOtp userEmailorOtp) throws GeneralException;
 	public GeneralResponse verifyEmailOtp(RequestEmailorOtp userEmailorOtp)throws GeneralException;
+	public EmailBody debitEmail(String fromAccount, String toAccount, String Amount, String Mode, String toEmail);
+	public EmailBody creditEmail(String fromAccount, String toAccount, String Amount, String Mode, String toEmail);
 }

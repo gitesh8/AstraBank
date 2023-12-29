@@ -1,5 +1,6 @@
 package com.astrabank.service;
 
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collector;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.astrabank.exception.GeneralException;
 import com.astrabank.model.Account;
+import com.astrabank.model.AccountOrCardStatus;
+import com.astrabank.model.EmailBody;
 import com.astrabank.model.Transaction;
 import com.astrabank.model.TransactionStatus;
 import com.astrabank.repository.AccountRepository;
@@ -27,6 +30,9 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Autowired
 	private CurrentLoggedinUser userName;
+	
+	@Autowired
+	private EmailServiceImpl emailService;
 
 	private static final Object lock = new Object();
 
@@ -37,6 +43,11 @@ public class TransactionServiceImpl implements TransactionService {
 
 		// getting user account
 		Account SenderAccount = accountRepo.findAccountByUsername(userName.getLoggedInUser());
+		
+		// checking if the user account is deactive
+		if(SenderAccount.getStatus()!=AccountOrCardStatus.Active) {
+			throw new GeneralException("Your Account is Deactive");
+		}
 		
 		// checking if the user sending the money to their own account
 		if(SenderAccount.getAccountNumber().equals(trnRequest.getAccountNumber())) {
@@ -100,7 +111,27 @@ public class TransactionServiceImpl implements TransactionService {
 		// saving both the accounts
 		accountRepo.save(SenderAccount);
 		accountRepo.save(receiverAccount);
-
+		
+		// last4digits of account
+		String senderLast4Digits = SenderAccount.getAccountNumber().substring( SenderAccount.getAccountNumber().length()-4);
+		String reciverLast4Digits = receiverAccount.getAccountNumber().substring(receiverAccount.getAccountNumber().length()-4);
+		
+		// sending email to sender
+		EmailBody senderEmail = emailService.debitEmail("XXXX-XXXX-XXX"+senderLast4Digits, "XXXX-XXXX-XXX"+reciverLast4Digits, String.valueOf(trnRequest.getAmount()), "IMPS", SenderAccount.getCustomer().getEmail());
+		
+        // checking if the users added email and then sending email
+        if(SenderAccount.getCustomer().getEmail()!=null) {
+        	emailService.SendEmail(senderEmail);
+        }
+        
+		// reciever email to sender
+		EmailBody receiverEmail = emailService.creditEmail("XXXX-XXXX-XXX"+senderLast4Digits, "XXXX-XXXX-XXX"+reciverLast4Digits, String.valueOf(trnRequest.getAmount()), "IMPS", receiverAccount.getCustomer().getEmail());
+        
+        // checking if the users added email and then sending email
+        if(receiverAccount.getCustomer().getEmail()!=null) {
+        	emailService.SendEmail(receiverEmail);
+        }
+		
 		GeneralResponse response = new GeneralResponse();
 		response.setMessage("Transaction Successfull");
 

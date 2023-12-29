@@ -10,6 +10,7 @@ import com.astrabank.model.Account;
 import com.astrabank.model.AccountOrCardStatus;
 import com.astrabank.model.AstraPayTransaction;
 import com.astrabank.model.Card;
+import com.astrabank.model.EmailBody;
 import com.astrabank.model.Transaction;
 import com.astrabank.model.TransactionStatus;
 import com.astrabank.repository.AccountRepository;
@@ -33,7 +34,10 @@ public class AstraPayServiceImpl implements AstraPayService {
 	private AstraPayRepository astraPayRepo;
 	
 	@Autowired
-	private TransactionServiceImpl trnService;
+	private EmailService emailService;
+	
+	@Autowired
+	private TransactionService trnService;
 	
 	@Override
 	public AstraPayTransaction generateTransactionId(AstraPayCardDetails userCardDetails) throws GeneralException {
@@ -193,6 +197,16 @@ public class AstraPayServiceImpl implements AstraPayService {
 		
 		// saving account
 		accountRepo.save(trnAccount);
+		
+		// sending email to user for transaction 
+		
+		EmailBody astraPayTransactionMail = emailService.debitEmail("XXXX-XXXX-XXX"+trnAccount.getAccountNumber().substring(trnAccount.getAccountNumber().length()-4), "Astra Pay", String.valueOf(userTrn.getAmount()), "Card ending "+userTrn.getUserCardNumber().substring(userTrn.getUserCardNumber().length()-4), trnAccount.getCustomer().getEmail());
+		
+		// checking if the user has email
+		if(trnAccount.getCustomer().getEmail()!=null) {
+			emailService.SendEmail(astraPayTransactionMail);
+		}
+		// sending success response to user
 		
 		GeneralResponse response = new GeneralResponse();
 		response.setMessage("Transaction Successfull");;

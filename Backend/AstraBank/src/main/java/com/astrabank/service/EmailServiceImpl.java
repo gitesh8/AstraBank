@@ -1,6 +1,7 @@
 package com.astrabank.service;
 
 import java.security.SecureRandom;
+import java.time.LocalDate;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -150,6 +151,66 @@ public class EmailServiceImpl implements EmailService {
 		else {
 			return new GeneralResponse(false, "Invalid OTP");
 		}
+	}
+
+	@Override
+	public EmailBody debitEmail(String fromAccount, String toAccount, String Amount, String Mode, String toEmail) {
+		// TODO Auto-generated method stub
+		
+		EmailBody debitEmail = new EmailBody();
+		debitEmail.setBody("<body>\r\n"
+				+ "    <div class=\"container\">\r\n"
+				+ "        <div class=\"header\">\r\n"
+				+ "            <h2>Debit Transaction Alert</h2>\r\n"
+				+ "        </div>\r\n"
+				+ "        <div class=\"content\">\r\n"
+				+ "            <p>Dear Customer,</p>\r\n"
+				+ "            <p>Your Astra Bank Account("+fromAccount+") is Debited for Amount of Rs "+Amount+"</p>\r\n"
+				+"              <p>Below are the transaction details</p>\r\n"
+				+ "            <ul>\r\n"
+				+ "                <li><strong>To Account Number: </strong>"+toAccount+"</li>\r\n"
+				+ "                <li><strong>Debited Amount:</strong> Rs "+Amount+"</li>\r\n"
+				+ "                <li><strong>Transaction Type:</strong> "+Mode+"</li>\r\n"
+				+ "                <li><strong>Transaction Date:</strong> "+LocalDate.now()+"</li>\r\n"
+				+ "            </ul>\r\n"
+				+ "            <p>If this transaction is not done by you, Immediately reply to email and we will block your account </p>\r\n"
+				+ "            <p>Thank you for choosing Astra Bank your Banking Partner</p>\r\n"
+				+ "        </div>\r\n"
+				+ "</body>");
+		
+		debitEmail.setSubject("Astra Bank Transaction Alert");
+		debitEmail.setToEmail(toEmail);
+		
+		return debitEmail;
+	}
+	@Override
+	public EmailBody creditEmail(String fromAccount, String toAccount, String Amount, String Mode, String toEmail) {
+		// TODO Auto-generated method stub
+		
+		EmailBody creditEmail = new EmailBody();
+		creditEmail.setBody("<body>\r\n"
+				+ "    <div class=\"container\">\r\n"
+				+ "        <div class=\"header\">\r\n"
+				+ "            <h2>Credit Transaction Alert</h2>\r\n"
+				+ "        </div>\r\n"
+				+ "        <div class=\"content\">\r\n"
+				+ "            <p>Dear Customer,</p>\r\n"
+				+ "            <p>Your Astra Bank Account("+toAccount+") is Credited for Amount of Rs "+Amount+"</p>\r\n"
+				+"              <p>Below are the transaction details</p>\r\n"
+				+ "            <ul>\r\n"
+				+ "                <li><strong>From Account Number: </strong>"+fromAccount+"</li>\r\n"
+				+ "                <li><strong>Debited Amount:</strong> Rs "+Amount+"</li>\r\n"
+				+ "                <li><strong>Transaction Type:</strong> "+Mode+"</li>\r\n"
+				+ "                <li><strong>Transaction Date:</strong> "+LocalDate.now()+"</li>\r\n"
+				+ "            </ul>\r\n"
+				+ "            <p>Thank you for choosing Astra Bank your Banking Partner</p>\r\n"
+				+ "        </div>\r\n"
+				+ "</body>");
+		
+		creditEmail.setSubject("Astra Bank Transaction Alert");
+		creditEmail.setToEmail(toEmail);
+		
+		return creditEmail;
 	}
 
 }
