@@ -65,3 +65,72 @@ function validateInput(inputValue) {
     // If none of the above conditions are met, the input is considered valid
     return true;
 }
+async function autoFillCardDetailsFromAccount(){
+
+    showPreloader();
+
+    let jwtToken = localStorage.getItem("jwtToken");
+
+    if (jwtToken == null) {
+        hidePreloader()
+        swal({
+            title: `Login to used this feature`,
+            icon: "warning",
+        })
+        return;
+    }
+
+    const apiUrl = `${backendUrl}auth/card`;
+
+    // Simulate a POST request to the backend API
+    const response = await fetch(apiUrl, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtToken}`
+        }
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        if (data["message"] == "Yes") {
+
+            const apiUrl = `${backendUrl}auth/card/view-card-or-new`;
+
+            // Simulate a POST request to the backend API
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${jwtToken}`
+                }
+            });
+        
+            if (response.ok) {
+                const data = await response.json();
+        
+                document.getElementById('cardNumber').value = data.cardNumber;
+                document.getElementById('expiry').value = data.expiry;
+                document.getElementById('cvv').value = data.cvv;
+
+                // disabling input 
+                document.getElementById('cardNumber').disabled=true;
+                document.getElementById('expiry').disabled=true;
+                document.getElementById('cvv').disabled=true;
+
+
+
+                hidePreloader();
+            }
+        }
+        else{
+
+            hidePreloader()
+
+            swal({
+                title: `You do not have any card`,
+                icon: "warning",
+            })
+        }
+    }
+}

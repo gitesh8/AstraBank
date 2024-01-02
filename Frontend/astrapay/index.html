@@ -30,9 +30,15 @@
             <label for="cvv">Amount:</label>
             <input type="text" id="amount" placeholder="Enter Amount" required>
     
-            <button type="button" onclick="processPayment()">Proceed</button>
+            <div>
+                <button type="button"  onclick="processPayment()">Proceed</button>
+                <button type="button" style="background: #0037ff;" onclick="autoFillCardDetailsFromAccount()">Auto Fill Details</button>
+            </div>
         </form>
+       
     </div>
+
+    
 
 <script src="/assets/js/preloader.js"></script>
 <script src="/assets/config/backend-url.js"></script>
